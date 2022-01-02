@@ -7,7 +7,7 @@
 
 sr = 44100
 ksmps = 32
-nchnls = 2
+nchnls = 1
 0dbfs  = 1
 
 pyinit
@@ -62,9 +62,9 @@ def clap_sequence_detected():
 	print 'Matching clap sequence detected!'
 	toggle_light = not toggle_light
 	if toggle_light:
-    	light.set_power("on")
+    		light.set_power("on")
 	else:
-    	light.set_power("off")
+    		light.set_power("off")
 
 clap_analyzer.on_clap(clap_detected)
 clap_analyzer.on_clap_sequence(clap_sequence_detected)
