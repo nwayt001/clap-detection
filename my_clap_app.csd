@@ -7,7 +7,7 @@
 
 sr = 44100
 ksmps = 32
-nchnls = 1
+nchnls = 2
 0dbfs  = 1
 
 pyinit
@@ -17,6 +17,32 @@ instr 1
 pyruni {{
 import os, sys
 sys.path.append(os.getcwd())
+from lifxlan import LifxLAN
+import time
+
+print('Initializing Light Control..')
+
+MAX_CONNECTION_RETRIES = 5
+
+lifx = LifxLAN(1)
+print("Connecting...")
+
+light = None
+for i in range(MAX_CONNECTION_RETRIES):
+    try:
+        # get lights
+        #devices = Lifx.get_lights()
+        #light = devices[0]
+        light = lifx.get_device_by_name("mini_1")
+        break
+    except:
+        print("Retrying...")
+        time.sleep(1)
+toggle_light = True
+if light is None:
+    raise Exception("Failed to connect to LIFX device! Please try again.")
+
+print("Connected!")
 
 print 'Clap detection program started...'
 clap_counter = 1
@@ -31,7 +57,14 @@ def clap_detected():
 	clap_counter = clap_counter + 1
 
 def clap_sequence_detected():
+	global light
+	global toggle_light
 	print 'Matching clap sequence detected!'
+	toggle_light = not toggle_light
+	if toggle_light:
+    	light.set_power("on")
+	else:
+    	light.set_power("off")
 
 clap_analyzer.on_clap(clap_detected)
 clap_analyzer.on_clap_sequence(clap_sequence_detected)
