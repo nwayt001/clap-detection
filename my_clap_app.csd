@@ -17,6 +17,7 @@ instr 1
 pyruni {{
 import os, sys
 sys.path.append(os.getcwd())
+sys.path.append('/home/pi/clap-detection/')
 from lifxlan import LifxLAN
 import time
 
@@ -49,7 +50,7 @@ clap_counter = 1
 
 from clap import ClapAnalyzer
 #clap_analyzer = ClapAnalyzer(note_lengths=[0.25, 0.125, 0.125, 0.25, 0.25])
-clap_analyzer = ClapAnalyzer(note_lengths=[0.25, 0.25])
+clap_analyzer = ClapAnalyzer(note_lengths=[0.25, 0.25, 0.25])
 
 def clap_detected():
 	global clap_counter
@@ -101,7 +102,7 @@ endin
 </CsInstruments>
 <CsScore>
 
-i 1 0 500
+i 1 0 5000
 e
 </CsScore>
 </CsoundSynthesizer>
