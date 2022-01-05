@@ -102,7 +102,7 @@ endin
 </CsInstruments>
 <CsScore>
 
-i 1 0 5000
+i 1 0 500000000
 e
 </CsScore>
 </CsoundSynthesizer>
