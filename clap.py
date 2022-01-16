@@ -1,5 +1,5 @@
 class ClapAnalyzer:
-    def __init__(self, note_lengths, deviation_threshold=0.1):
+    def __init__(self, note_lengths, deviation_threshold=0.05):
         """
         :param note_lengths: Relative note lengths in the rhythmic pattern. F.ex. [2, 1, 1, 2, 2]
         :param deviation_threshold: How much deviation from the pattern should be considered failure
@@ -8,7 +8,7 @@ class ClapAnalyzer:
         self.buffer_size = len(note_lengths)
         self.pattern = self.note_lengths_to_normalized_pauses(note_lengths)
         self.pattern_sum = sum(self.pattern)
-        self.min_pattern_time = .1 * self.pattern_sum  # min 100 ms between fastest clap in sequence
+        self.min_pattern_time = .2 * self.pattern_sum  # min 100 ms between fastest clap in sequence
         self.max_pattern_time = .5 * self.pattern_sum  # max 500 ms between fastest clap in sequence
         self.clap_times = [None] * self.buffer_size
         self.deviation_threshold = deviation_threshold
